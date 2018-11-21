@@ -1,0 +1,1899 @@
+
+ixgbe Linux* Base Driver for Intel(R) Ethernet Network Connections
+==================================================================
+
+================================================================================
+
+March 21, 2017
+
+================================================================================
+
+Contents
+--------
+
+- Important Note
+- Overview
+- Building and Installation
+- Command Line Parameters
+- Additional Configurations
+- Known Issues/Troubleshooting
+- Support
+- License
+
+
+================================================================================
+
+
+Important Notes
+---------------
+note:
+53
+<incentive> the bonus is an incentive for me to work hard.stimulus 
+motive Hunger was the motive for his stealing.
+stimulation (a little abstract. Many enjoy the mental stimulation of a challenging job) 
+sustain(~ defeat,loss,injury) feminine (ideology of femininity motherhood) 
+<divert ~ attention from ,~ funds from to> gleam(black hair ~ in the sun,glitter glow,cigarette`s red ~, glare(n,v) the~ of a car`s headlights flash twinkle(eye ~) sparkle,jewels on her fingers sparkled) 
+profound stall(booth) destined tick inflict<to make sb/sth suffer sth unpleasant,~ heavy casualties on govermnet> depict(portray,~sb,plays sb in a play or film) <<flip,~ a magazine>> undertake(~ tough task ) 
+subsequent(She subsequently became the Faculty's President,in the ~ years) descenti(All the contributors were of African/Asian descent.) concede sober immerse<e-merge> trivial encounter(confront) 
+rupture<> donate<endow with> snatch childlike naive ignite cooperate(corporate image) 
+handicap(n overcome his ~,v Stress may seriously handicap some students) contrary(contrary to the popular belief)(controversy<discussion about sth with strong feelings of anger or disapproval>) overturn(overthrow turnover) gracious(graceful)
+hinge plensant sensation(lost his all ~,create a ~)(sense sensational<>wonderful)(sixth sense) 
+(elegence grace)
+
+Disable LRO if enabling ip forwarding or bridging
+-------------------------------------------------
+
+WARNING: The ixgbe driver supports the Large Receive Offload (LRO) feature.
+This option offers the lowest CPU utilization for receives but is completely
+incompatible with *routing/ip forwarding* and *bridging*. If enabling ip
+forwarding or bridging is a requirement, it is necessary to disable LRO using
+compile time options as noted in the LRO section later in this document. The
+result of not disabling LRO when combined with ip forwarding or bridging can be
+low throughput or even a kernel panic.
+The ixgbe driver supports the Large Receive Offload (LRO) feature.
+This option offers the lowest CPU utilization for receives but is completely
+incompatible with *routing/ip forwarding* and *bridging*. If enabling ip
+forwarding or bridging is a requirement, it is necessary to disable LRO using
+compile time options as noted in the LRO section later in this document. The
+result of not disabling LRO when combined with ip forwarding or bridging can be
+low throughput or even a kernel panic.
+
+In a virtualized environment, on Intel(R) Ethernet Server Adapters that support 
+SR-IOV, the virtual function (VF) may be subject to malicious behavior. 
+Software-generated layer two frames, like IEEE 802.3x (link flow control), IEEE 
+802.1Qbb (priority based flow-control), and others of this type, are not 
+expected and can throttle traffic between the host and the virtual switch, 
+reducing performance. To resolve this issue, configure all SR-IOV enabled ports 
+for VLAN tagging. This configuration allows unexpected, and potentially 
+malicious, frames to be dropped.
+
+Overview
+
+-------------------------------------------------------------
+Do not unload a port's driver if a Virtual Function (VF) with an active Virtual 
+Machine (VM) is bound to it. Doing so will cause the port to appear to hang. 
+
+note:
+25
+(more)prevalent<prevail> contemplate(temple) dilute unveil compulsory reluctant(relevant) 
+breakdown hike exert(~ influence on sth,~ oneself in doing) defer  revelation reclaim(reclaim South African citizenship) <impetus,renewed ~ to> endorse(~ wholeheartedly) superior(~ to,~ quality) identical(Things that are identical are exactly the same) 
+arrogant obstacle obscure(n,v in obscure language,vague ~memory) <constitution,strong ~, confer> precedent(set an important precedent for dealing with )
+<precede(precedes the paragraph in question)> suppress(suppresses an activity, they prevent it from continuing) repress(repress a feeling,He repressed a smile.) 
+dedicate(he dedicated himself to politics) anniversary
+
+Do not unload port driver if VF with active VM is bound to it
+-------------------------------------------------------------
+Do not unload a port's driver if a Virtual Function (VF) with an active Virtual 
+Machine (VM) is bound to it. Doing so will cause the port to appear to hang. 
+Once the VM shuts down, or otherwise releases the VF, the command will complete.
+(20)
+note:
+hospitality(be overwhelmed by the ~ of people) junction tan indulge enroll(enroll your children in the school,enroll new students) simultaneous tribute(the song is a ~ to) superiority <test-ify,testify to/against/in favor of> 
+revive stimulate manoeuvre<> quench corrupt(corruption) dub tempt facilitate(facility) 
+ingenious<genius> jeopardise 
+
+Configuring SR-IOV for improved network security
+------------------------------------------------
+In a virtualized environment, on Intel(R) Ethernet Server Adapters that support 
+SR-IOV, the virtual function (VF) may be subject to malicious behavior. 
+Software-generated layer two frames, like IEEE 802.3x (link flow control), IEEE 
+802.1Qbb (priority based flow-control), and others of this type, are not 
+expected and can throttle traffic between the host and the virtual switch, 
+reducing performance. To resolve this issue, configure all SR-IOV enabled ports 
+for VLAN tagging. This configuration allows unexpected, and potentially 
+malicious, frames to be dropped.
+Overview
+--------
+
+This driver supports kernel versions 2.6.x and newer.
+
+Driver information can be obtained using ethtool, lspci, and ifconfig. 
+Instructions on updating ethtool can be found in the section Additional 
+Configurations later in this document.
+This driver is only supported as a loadable module at this time. Intel is not 
+supplying patches against the kernel source to allow for static linking of the 
+drivers.
+For questions related to hardware requirements, refer to the documentation 
+supplied with your Intel adapter. All hardware requirements listed apply to use 
+with Linux.
+
+This driver supports kernel versions 2.6.x and newer.
+(54)
+note:
+kit economical heritage(inheritance) concise coherent over-state(exaggerate) compel dominate turnover(annual ~ is around ,staff ~)
+journal impulse(pulse) engagement beam withstand <incur,If you incur something unpleasant, it happens to you because of something you have done. ~ huge debts.> 
+overlap setback(a setback for peace process,feedback) defiance 
+<derive river> dubious(~ about his motive, Skeptical,suspicious doubtful about) assumption forge(fabricate) spectrum <contend>(racism) 
+consent(n,v) resent(v,sth/sb)
+content expectation inferior<>(prefer subordinate) <frequency> conform momentum versatile(~ athletes,computer) 
+criterion displace(substitute) exempt immune [vocal](~ organ,very vocal in his criticism of the government's policy) afflict<afflicted by pain, illness, or disaster> 
+endanger<in-danger> distinctive(~ odour)<distinction,sth of ~> predecessor(ancestor pioneer) sparkle<> saturate(be ~ed with oil) overwhelm<> medium<>
+
+Adapter teaming is implemented using the native Linux Channel bonding module. 
+This is included in supported Linux kernels. Channel Bonding documentation can 
+be found in the Linux kernel source:
+/documentation/networking/bonding.txt
+
+The driver information previously displayed in the /proc file system is not 
+supported in this release.
+
+NOTE: Devices based on the Intel(R) Ethernet Connection X552 and Intel(R) 
+Ethernet Connection X553 do not support the following features:
+* Energy Efficient Ethernet (EEE)
+* Intel PROSet for Windows Device Manager
+* Intel ANS teams or VLANs (LBFO is supported)
+* Fibre Channel over Ethernet (FCoE)
+* Data Center Bridging (DCB)
+* IPSec Offloading
+* MACSec Offloading
+In addition, SFP+ devices based on the Intel(R) Ethernet Connection X552 and 
+Intel(R) Ethernet Connection X553 do not support the following features:
+* Speed and duplex auto-negotiation.
+* Wake on LAN
+* 1000BASE-T SFP Modules
+
+
+Identifying Your Adapter
+------------------------
+The driver in this release is compatible with devices based on the following:
+  * Intel(R) Ethernet Controller 82598
+  * Intel(R) Ethernet Controller 82599
+  * Intel(R) Ethernet Controller X540
+  * Intel(R) Ethernet Controller x550
+  * Intel(R) Ethernet Controller X552
+  * Intel(R) Ethernet Controller X553
+
+For information on how to identify your adapter, and for the latest Intel 
+network drivers, refer to the Intel Support website:
+http://www.intel.com/support
+
+
+SFP+ Devices with Pluggable Optics
+----------------------------------
+
+82599-BASED ADAPTERS
+--------------------
+
+NOTES:
+- If your 82599-based Intel(R) Network Adapter came with Intel optics or is an
+  Intel(R) Ethernet Server Adapter X520-2, then it only supports Intel optics
+  and/or the direct attach cables listed below.
+(41)
+note:
+overflow overcome authorize appease<reassure> urge transcend transfer(v.n) disregard(~ the advice of his executives) transmit(~ disease)
+purchase timid(tame) endow(with) signify condemn(denounce) confuse(~ with) inherent 
+overseas(~ visitors) <definitive>(~ answer\book) <definite(firm and clear, and unlikely to be changed.~ answer
+proof improvement)>
+contribute impair incidentally(~,why have you come) foster intuition(tuition) retain concern(v.n  expressed concern about) 
+adolescent <refrain>(~ from ,refrained from making any comment)
+restrain(~ sb from doing,restrain sb zhu zhi fa sheng) dazzle 
+constrain(~ed by family commitments,xian zhi fa sheng)
+hoist bachelor revenge(retort<>, accused her of trying to revenge herself on her former lover,
+take revenge on the 14-year-old) 
+avenge (avenging his daughter's death)
+barrel prohibit inhibit extract proximity<to > kidnap prospect considerate
+significance contrasting 
+
+- When 82599-based SFP+ devices are connected back to back, they should be
+  set to the same Speed setting via ethtool. Results may vary if you mix
+  speed settings.
+
+Supplier	Type					Part Numbers
+--------	----					------------
+SR Modules
+Intel		DUAL RATE 1G/10G SFP+ SR (bailed)	FTLX8571D3BCV-IT
+Intel		DUAL RATE 1G/10G SFP+ SR (bailed)	FTLX8571D3BCV-IT
+Intel		DUAL RATE 1G/10G SFP+ SR (bailed)	AFBR-703SDZ-IN2
+Intel		DUAL RATE 1G/10G SFP+ SR (bailed)	AFBR-703SDDZ-IN1
+Intel		DUAL RATE 1G/10G SFP+ SR (bailed)	AFBR-703SDDZ-IN1
+LR Modules
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	FTLX1471D3BCV-IT
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	AFCT-701SDZ-IN2
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	AFCT-701SDDZ-IN1
+LR Modules
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	FTLX1471D3BCV-IT
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	AFCT-701SDZ-IN2
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	AFCT-701SDDZ-IN1
+
+The following is a list of 3rd party SFP+ modules that have received some
+testing. Not all modules are applicable to all devices.
+Intel		DUAL RATE 1G/10G SFP+ SR (bailed)	AFBR-703SDZ-IN2
+Intel		DUAL RATE 1G/10G SFP+ SR (bailed)	AFBR-703SDDZ-IN1
+LR Modules
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	FTLX1471D3BCV-IT
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	AFCT-701SDZ-IN2
+Intel		DUAL RATE 1G/10G SFP+ LR (bailed)	AFCT-701SDDZ-IN1
+
+The following is a list of 3rd party SFP+ modules that have received some
+testing. Not all modules are applicable to all devices.
+
+note:
+43
+accuse prior(prior commitment,Prior to his Japan trip, he went to New York) 
+overwhelming lure strand procede<？(precede(precede them from the room) proceed) 
+defendant administer essence 
+<dividend(The first quarter dividend)> flexible <ultimate> betray 
+characterize scramble surge<n,vrecent ~ in inflation> reveal<>conceal 
+reassure<If you reassure someone, you say or do things to make them stop worrying about something.> 
+designate(set aside for that purpose) console 
+duplicate concerning considering (prep.n It is particularly concerning that) hierachy embody shove 
+mingle<cheers and applause mingled,mingle with other people> 
+portray paralyse(~ed by parachute) refund hamper 
+<permeate Bias against women permeates every level of the judicial system>
+exquisite fancy installment lawsuit(culminate in ~ against government) cue(v,n)<sue,sue sb for sth> 
+endeavor(made an [earnest](~ woman) endeavor to persuade her) infringe<infringes a law or a rule> 
+spray
+
+Supplier	Type					Part Numbers --------	----					------------
+Finisar		SFP+ SR bailed, 10g single 
+rate		FTLX8571D3BCL
+Avago		SFP+ SR bailed, 10g single rate		AFBR-700SDZ
+Avago		SFP+ SR bailed, 10g single rate		AFBR-700SDZ
+Finisar		SFP+ LR bailed, 10g single 
+rate		FTLX1471D3BCL
+Finisar		DUAL RATE 1G/10G SFP+ SR (No 
+Bail)	FTLX8571D3QCV-IT
+Avago		DUAL RATE 1G/10G SFP+ SR (No Bail)	AFBR-703SDZ-IN1
+Finisar		DUAL RATE 1G/10G SFP+ LR (No 
+Bail)	FTLX1471D3QCV-IT
+Avago		DUAL RATE 1G/10G SFP+ LR (No Bail)	AFCT-701SDZ-IN1
+
+Finisar		SFP+ LR bailed, 10g single 
+rate		FTLX1471D3BCL
+Finisar		DUAL RATE 1G/10G SFP+ SR (No 
+Bail)	FTLX8571D3QCV-IT
+Avago		DUAL RATE 1G/10G SFP+ SR (No Bail)	AFBR-703SDZ-IN1
+Finisar		DUAL RATE 1G/10G SFP+ LR (No 
+Bail)	FTLX1471D3QCV-IT
+Avago		DUAL RATE 1G/10G SFP+ LR (No Bail)	AFCT-701SDZ-IN1
+
+Finisar		1000BASE-T 
+SFP				FCLF8522P2BTL
+Avago		1000BASE-T				ABCU-5710RZ
+HP		1000BASE-SX SFP				453153-001
+Finisar		1000BASE-T 
+SFP				FCLF8522P2BTL
+Avago		1000BASE-T				ABCU-5710RZ
+HP		1000BASE-SX SFP				453153-001
+
+note:
+100
+inaugurate cherish mediate instantaneous(Airbags inflate instantaneously on impact)
+ <intrigue> slump<Net profits slumped by 41%,~ into a chair>(slash ~prices) 
+regulate regular verge(<fringe(n,adj), leather fringes,a small ~ group>) 
+baffle<~ experts>(afflict)<>slack(far(much) too ~) stubborn intermittent<~ rain> 
+plead(~ sb to do,Mr Burke, pleading poverty(yi shen mo wei li you), changed his mind)
+(appeal to sb for sth,appeal sth) ascribe reception(wait at the ~ for me.) blunt(be ~ about his personal life,~ knife) 
+clutch articulate(v,~ your ideas,adj ~ woman) eloquent(make an ~ speech,~ about his love of books) intricate perpetual inject embed 
+addict(TV drug ~) decisive stroke 
+illuminate(luminous,~ intensity) diminish confidential rash arbitrary assault
+rebound( had rebounded on her)(rebounce) decree spice extinct expire fragile(brittle) 
+outdated(outdated and inefficient factories) auxiliary(subsidiary n,adj play a ~ role) subsidy(farm ~ cuts) 
+pathetic(wretched) sympathetic(be ~ to) sympathize(~ with you for loss,~ with a proposal) sympathy (have ~ with one`s ideas or opinions )discourage(~sb)pirate <adverse(unfavorable)> phrase illuminate<luminous> alien 
+
+82599-based adapters support all passive and active limiting direct attach
+cables that comply with SFF-8431 v4.1 and SFF-8472 v10.4 specifications.
+
+
+Laser turns off for SFP+ when ifconfig ethX down
+------------------------------------------------
+
+"ifconfig ethX down" turns off the laser for 82599-based SFP+ fiber adapters.
+"ifconfig ethX up" turns on the laser.
+Alternatively, you can use "ip link set [down/up] dev ethX" to turn the
+laser off and on.
+
+
+82599-based QSFP+ Adapters
+--------------------------
+
+NOTES:
+note:
+following the previous note 
+
+simplicity(the [apparent] ~ of his plot is deceptive) stifle 
+bureaucracy(State bureaucracies can tend to [stifle] enterprise and initiative) invaluable responsibly staple(~ food of) 
+shortage(deficient a diet ~ in vitamin B,~ landing system)
+tangle(n a ~ of ,v  get ~ed twisted together in an untidy way)(mingle) 
+prolong(a prolonged conversation) <distort culminate litter> underlying(understand its underlying causes) stereotype rigorous(~ tests,be ~ in doing sth) 
+manipulate stun(a blow on the head stuns you) <lounge> embark(on sth) notorious(well-known for something bad,the company is notoriously inefficient.) 
+segregate(To segregate two groups of people or things means to keep them physically apart from each other.)
+)
+Police segregated the two rival camps of protesters
+isolate(insulate segregate seperate partition(n,v)) 
+casualty(causing many casualties,one of the greatest ~ies of ) 
+<intent n,adj be ~ on doing,A person's intent is their intention to do something.intent on arms control> 
+county outrage<out-rage> integral foundation  
+retrieve(~ his jacket(jet),retrieve information from a computer) 
+confine(v,n,within the confines of the abandoned factory) considering(considering the situation) 
+criticism(under the strong ~ on ) succession(he take a ~ of jobs) successive  <impart> <passive(active) negative positive> 
+<comply with ,~ the ceasefire> <<agony Agony is great physical or mental pain.>>
+
+NOTES:
+- Intel(r) Ethernet Network Adapters that support removable optical modules
+  only support their original module type (for example, the Intel(R) 10 Gigabit
+  SR Dual Port Express Module only supports SR optical modules). If you plug
+  in a different type of module, the driver will not load.
+- Hot Swapping/hot plugging optical modules is not supported.
+- Only single speed, 10 gigabit modules are supported.
+- LAN on Motherboard (LOMs) may support DA, SR, or LR modules. Other module
+  types are not supported. Please see your system documentation for details.
+
+- If your 82599-based Intel(R) Network Adapter came with Intel optics, it
+  only supports Intel optics.
+- 82599-based QSFP+ adapters only support 4x10 Gbps connections.
+  1x40 Gbps connections are not supported. QSFP+ link partners must be
+  configured for 4x10 Gbps.
+  The link speed must be configured to either 10 Gbps or 1 Gbps to match the
+  link partners speed capabilities. Incorrect speed configurations will result
+  in failure to link.
+
+NOTES:
+  only supports Intel optics.
+- 82599-based QSFP+ adapters only support 4x10 Gbps connections.
+  1x40 Gbps connections are not supported. QSFP+ link partners must be
+  configured for 4x10 Gbps.
+  The link speed must be configured to either 10 Gbps or 1 Gbps to match the
+  link partners speed capabilities. Incorrect speed configurations will result
+  in failure to link.
+
+NOTES:
+- Intel(r) Ethernet Network Adapters that support removable optical modules
+  only support their original module type (for example, the Intel(R) 10 Gigabit
+  SR Dual Port Express Module only supports SR optical modules). If you plug
+  in a different type of module, the driver will not load.
+- Hot Swapping/hot plugging optical modules is not supported.
+- Only single speed, 10 gigabit modules are supported.
+- LAN on Motherboard (LOMs) may support DA, SR, or LR modules. Other module
+  types are not supported. Please see your system documentation for details.
+
+note:
+60
+coalition(~ government) intelligible <intelligence> affiliate(n,v. to with,an organization affiliates to or with another larger organization) plot(contrive) 
+convict conviction (he will appeal against his ~, firm ~ ,said with ~)
+caution(n,v) deteriorate basement
+contention<support his contention ,If something is a cause of contention, it is a cause of disagreement or argument,contend,~ with sb for sth such as power> 
+inhibit nominate compliment(n,v) complaint  collaboration<substantial ~> alternate(adj,~ days ,vt,you ~ two things,you keep using one then the other, vi,when one thing alternates with another,the first regularly occurs after the other) elevate miniature plea(make emotional ~ for help in solving the killing )
+prompt flutter<> ridge entitle ignorant(cognitive<~ psychology>) <e-licit> dispute budget immune(adj,to/from) eligible
+doom petition conform(comply) clearance evoke patrol(patriot) deteriorate(vt,vi)aggravate(vt,~ situation) tilt(If you tilt an object or if it tilts) allergic disaster substantial(a ~ number of ) 
+imagine(~ sth,envisage fancy doing)
+premise(there is a kitchen on the premises.) notify surpass<> recur(~ frequently) incur(incur something unpleasant,~ huge debts)retention<support the ~ of sth> skeleton(~ staff) 
+coverage(insurance ~,Now a special TV network gives live coverage of most races)
+necessitate(makes it necessary) <haunt,~ sb sp>(hunt,~ for clue,~ a criminal) evacuate(sb,sp,If people evacuate a place) 
+convene(If someone convenes a meeting or conference,they arrange for it to take place. ) provocative<~ speechs>(provoke,~ sb,~ a shocked reaction) specifications 
+
+
+- Intel(R) Ethernet Converged Network Adapter X520-Q1 only supports the
+  optics and direct attach cables listed below.
+
+
+Supplier	Type				Part Numbers
+--------	----				------------
+Intel	DUAL RATE 1G/10G QSFP+ SRL (bailed)	E10GQSFPSR
+
+82599-based QSFP+ adapters support all passive and active limiting QSFP+
+direct attach cables that comply with SFF-8436 v4.1 specifications.
+
+
+82598-BASED ADAPTERS
+--------------------
+
+NOTES:
+- Intel(r) Ethernet Network Adapters that support removable optical modules
+  only support their original module type (for example, the Intel(R) 10 Gigabit
+  SR Dual Port Express Module only supports SR optical modules). If you plug
+  in a different type of module, the driver will not load.
+- Hot Swapping/hot plugging optical modules is not supported.
+- Only single speed, 10 gigabit modules are supported.
+- LAN on Motherboard (LOMs) may support DA, SR, or LR modules. Other module
+  types are not supported. Please see your system documentation for details.
+
+  The following is a list of SFP+ modules and direct attach cables that have
+  received some testing. Not all modules are applicable to all devices.
+
+Supplier	Type					Part Numbers
+--------	----					------------
+Finisar		SFP+ SR bailed, 10g single 
+rate		FTLX8571D3BCL
+Avago		SFP+ SR bailed, 10g single rate		AFBR-700SDZ
+Finisar		SFP+ LR bailed, 10g single 
+rate		FTLX1471D3BCL
+
+82598-based adapters support all passive direct attach cables that comply with
+SFF-8431 v4.1 and SFF-8472 v10.4 specifications. Active direct attach cables
+are not supported.
+
+Third party optic modules and cables referred to above are listed only for the
+purpose of highlighting third party specifications and potential
+compatibility, and are not recommendations or endorsements or sponsorship of
+any third party's product by Intel. Intel is not endorsing or promoting
+products made by any third party and the third party reference is provided
+only to share information regarding certain optic modules and cables with the
+above specifications. There may be other manufacturers or suppliers, producing
+or supplying optic modules and cables with similar or matching descriptions.
+Customers must use their own discretion and diligence to purchase optic
+modules and cables from any third party of their choice. Customers are solely
+responsible for assessing the suitability of the product and/or devices and
+for the selection of the vendor for purchasing any product. THE OPTIC MODULES
+AND CABLES REFERRED TO ABOVE ARE NOT WARRANTED OR SUPPORTED BY INTEL. INTEL
+ASSUMES NO LIABILITY WHATSOEVER, AND INTEL DISCLAIMS ANY EXPRESS OR IMPLIED
+WARRANTY, RELATING TO SALE AND/OR USE OF SUCH THIRD PARTY PRODUCTS OR
+SELECTION OF VENDOR BY CUSTOMERS.
+
+note:
+75
+publicity(Much advance(adj) publicity was given to the talks,generated enormous publicity in Brazil) 
+dis-per-se<disperse,vi,vt The oil appeared to be dispersing> expire(v) dropout reign(vi,a person reigns in a situation or area)(rein,give free ~ to sb,keep a tight ~ on sb) 
+slash(slash spending on major military projects)<lash> <transmit,The game was transmitted live in Spain and Italy, [media transit] transit,~ of goods,~system>
+segregate<segment-re-gate> 
+conceive(sth,of sth,I just can't even conceive of that quantity of money) 
+conception(My conception of a garden was based on gardens I had visited in England) assess(assess the suitability) access
+radical offspring elastic contaminate
+ cater(for/to,If a person or company caters for an occasion such as a wedding or a party, they provide food and drink for all the people there.,cater for receptions of up to 300 people,In British English, to cater for a group of people means to provide all the things that they need or want) 
+intervene(If you intervene in a situation, you become involved in it and try to change it.)
+<dis-patch,dispatch someone to a place,dispatch a message,letter to sb> 
+dispense(sb/machine ~ ,the machine ~ the product,If someone dispenses something that they own or control, they give or provide it to a number of people.)
+<disperse,When something disperses or when you disperse it, it spreads over a wide area.> fac-et(every facet of the Indian life,the facets of a diamond or other precious stone) 
+manifest<adj,v manifest failure of the policies,He manifested a [pleasing] personality on stage> 
+formulate(~ his ideas,formulated his plan for escape) linger(sth or sb ~,The scent of her perfume lingered [on] in the room) absurd reciprocal<> analogy<>
+pre-sume(I presume you're here on business) <susceptible>vulnerable(vulnerable members of our society) minor commonplace 
+prone<For all her experience, she was still prone to nerves,To be prone to something, usually something bad, means to have a tendency to be affected by it or to do it.> 
+correlate<obesity> mutual stimulate(stimulus)
+
+<moderate,~ domacrat,You use moderate to describe something that is neither large nor small in amount or degree.While a moderate amount of stress can be beneficial, too much stress can exhaust you>
+
+shuttle enrich extravagant(luxury) 
+sentiment<public ~ suddenly turned to Anti-America,A sentiment that people have is an attitude which is based on their thoughts and feelings.> 
+<commend, praise them formally> 
+ample(If there is an ample amount of something, there is enough of it and usually some extra.)
+<amplify,amplifier magnify> discrete <dismay,n.v,If you are dismayed by something, it makes you feel afraid, worried, or sad.> 
+degrade 
+ease(n,with ~,If you do something with ease, you do it easily, without difficulty or effort. v ,tension has eased,If something unpleasant eases or if you ease it, it is reduced in degree, speed, or intensity.) 
+premium<insurance ~> 
+crude(~ sth/sb,If you describe an object that someone has made as crude, you mean that it has been made in a very simple way or from very simple parts.) 
+<multitude, a ~ of,A multitude of things or people is a very large number of them.> 
+monopoly traverse avert vacation(The French get five to six weeks' vacation a year.) 
+vocation occupation(by ~)
+strive<to do,for sth> vacant(a ~ seat) minimize<~ a risk,~ the window> rectify(~ something wrong) 
+<objective,main ~ ,~ evidence> <scrutiny,under media ~> 
+humanity(students majoring in the humanities) 
+retrospect(in ~,In retrospect, I wish that I had thought about alternative courses of action) 
+warrant(n.v warrant an investigation,If something warrants a particular action, it makes the action seem necessary or appropriate for the circumstances;a warrant for his arrest;If you say that there is no warrant for something, you mean that there is no good reason to [justify] it.)If you warrant that something is true or will happen, you say officially that it is true, or guarantee that it will happen.
+warranty(a twelve month warranty)
+
+leisure(n,phrase ,do sth at ~,fill my ~ time,if someone does something at leisure or at their leisure, they enjoy themselves by doing it when they want to, without hurrying. Leisure is the time when you are not working and you can relax and do things that you enjoy.) 
+<imperative n.adj it is ~ that> ver-bal<abuse,n.v absue of> 
+preach(preach peace and tolerance to his people) 
+deprive of(If you deprive someone of something that they want or need, you take it away from them, or you prevent them from having it.)
+(de-rive),derive pleasure from helping others, If you derive something such as pleasure or benefit from a person or from something, you get it from them.
+If you say that something such as a word or feeling derives or is derived from something else, you mean that it comes from that thing.
+Anna's strength is derived from her parents and her sisters
+
+whirl(n,vi,vt ~ round,If something or someone whirls around or if you whirl them around, they move around or turn around very quickly.) scale  
+
+
+================================================================================
+
+
+Building and Installation
+-------------------------
+To build a binary RPM* package of this driver, run 'rpmbuild -tb 
+ixgbe-<x.x.x>.tar.gz', where <x.x.x> is the version number for the driver tar 
+file.
+
+Note: For the build to work properly, the currently running kernel MUST match 
+the version and configuration of the installed kernel sources. If you have just 
+recompiled the kernel reboot the system before building.
+
+Note: RPM functionality has only been tested in Red Hat distributions.
+_lbank_line_
+
+1. Move the base driver tar file to the directory of your choice. For
+   example, use '/home/username/ixgbe' or '/usr/local/src/ixgbe'.
+
+2. Untar/unzip the archive, where <x.x.x> is the version number for the
+   driver tar file:
+   tar zxf ixgbe-<x.x.x>.tar.gz
+3. Change to the driver src directory, where <x.x.x> is the version number
+   for the driver tar:
+   cd ixgbe-<x.x.x>/src/
+
+4. Compile the driver module:
+   # make install
+   The binary will be installed as:
+   /lib/modules/<KERNEL 
+VERSION>/updates/drivers/net/ethernet/intel/ixgbe/ixgbe.ko
+
+note:
+70
+industrialize <incline(v,n ~ to the view,a steep ~) > 
+<innovative,sth/sb,Something that is innovative is new and original.>(ingenious,sth,a truly ~ invention,Something that is ingenious is very clever and involves new ideas, methods, or equipment.) ascertain<as-certain,ascertain the truth about sth> 
+<adverse,have no adverse effect on>(unfavorable) 
+generosity(If you refer to someone's generosity, you mean that they are generous, especially in doing or giving more than is usual or expected.) 
+chorus(A chorus is a large group of people who sing together.When there is a chorus of criticism, disapproval, or praise, that attitude is expressed by a lot of people at the same time.) 
+multiply 
+<legitimate,adj,Something that is legitimate is acceptable according to the law,That's a perfectly legitimate fear.
+If you say that something such as a feeling or claim is legitimate, you think that it is reasonable and justified.> 
+
+legal(take ~ action,Legal is used to describe things that relate to the law.An action or situation that is legal is allowed or required by law.What I did was perfectly legal.) 
+tolerant(sb/sth is ~ of) journalism(He began a career in journalism) 
+
+layoff(resulting in the layoffs) activate 
+certify(if the president certified that,
+They wanted to get certified as divers,If someone [is certified as] a particular kind of worker, they are given a certificate stating that they have successfully completed a course of training in their profession.) 
+stale moreover 
+forum descend destined lease(n,v, a 10 year lease,leased an apartment)(rent) assume cooperative
+preview <interval(An interval between two events or dates is the period of time between them.An interval during a film, concert, show, or game is a short break between two of the parts.The ferry service has restarted after an interval of 12 years)
+ opposition,The government is facing a new wave of opposition in the form of a student strike> 
+occupy cigarette(cigar) polar quota subsequent handle decieve 
+<deception> 
+skim(skim the page quickly,If you skim a piece of writing, you [read through] it quickly.If something skims a surface, it moves quickly along just above it.) urban spoil deem <deer> <privilege> tick electrical 
+<inflict,Rebels say they have inflicted heavy casualties on government forces> preside(~ over a meeting) parade snack interfer(with)
+  
+   The install location listed above is the default location. This may differ
+   for various Linux distributions.
+
+5. Load the module using the modprobe command:
+   modprobe <ixgbe> [parameter=port1_value,port2_value]
+   Make sure that any older ixgbe drivers are removed from the kernel before
+   loading the new module:
+   rmmod ixgbe; modprobe ixgbe
+6. Assign an IP address to the interface by entering the following,
+   where ethX is the interface name that was shown in dmesg after modprobe:
+   ip address add <IP_address>/<netmask bits> dev ethX
+
+7. Verify that the interface works. Enter the following, where IP_address
+   is the IP address for another machine on the same subnet as the interface
+   that is being tested:
+   ping <IP_address>
+
+Note: For certain distributions like (but not limited to) RedHat Enterprise 
+Linux 7 and Ubuntu, once the driver is installed the initrd/initramfs file may 
+need to be updated to prevent the OS loading old versions of the ixgbe driver. 
+The dracut utility may be used on RedHat distributions:
+	# dracut --force
+   For Ubuntu:
+	# update-initramfs -u
+
+
+================================================================================
+
+
+Command Line Parameters
+-----------------------
+If the driver is built as a module, the following optional parameters are used 
+by entering them on the command line with the modprobe command using this 
+syntax:
+modprobe ixgbe [<option>=<VAL1>,<VAL2>,...]
+
+There needs to be a <VAL#> for each network port in the system supported by 
+this driver. The values will be applied to each instance, in function order.
+For example:
+modprobe ixgbe InterruptThrottleRate=16000,16000
+
+In this case, there are two network ports supported by ixgbe in the system.
+The default value for each parameter is generally the recommended setting, 
+unless otherwise noted.
+note:
+38
+commodity implement(n useful ~,v implement a new system) acquaint peer(peel peep) nourish 
+adequate victim display secretary 
+trigger adopt abort proclaim(proclaim their independence)(declare) 
+proclamation(A proclamation is a public announcement about something important, 
+often about something of national importance.)
+invaluable reckless(sb is ~) <alleviate> relieve 
+react poll(n,Polls shows that,v If you are polled on something) majority chill 
+abnormal novel <novelty,a desire for novelty> supreme probe(n,v ~ into sth,probed into his background) 
+amplify simplicity pretend furnish <transient> evolve loan lest(conj) 
+profitable(Drug manufacturing is the most profitable business in America)
+advisable<sensible>
+ 
+NOTE: For more information about the command line parameters, see the 
+application note at: http://www.intel.com/design/network/applnots/ap450.htm.
+
+NOTE: A descriptor describes a data buffer and attributes related to the data 
+buffer. This information is accessed by the hardware.
+
+
+RSS
+---
+Valid Range: 0-16
+0 = Assign up to the lesser value of the number of CPUs or the number of queues
+X = Assign X queues, where X is less than or equal to the maximum number of
+queues (16 queues). 
+RSS also effects the number of transmit queues allocated on 2.6.23 and
+newer kernels with CONFIG_NETDEVICES_MULTIQUEUE set in the kernel .config file.
+CONFIG_NETDEVICES_MULTIQUEUE only exists from 2.6.23 to 2.6.26. Other options
+enable multiqueue in 2.6.27 and newer kernels.
+
+
+Multiqueue
+----------
+Valid Range:
+0, 1
+0 = Disables Multiple Queue support
+1 = Enabled Multiple Queue support (a prerequisite for RSS)
+
+
+Direct Cache Access (DCA)
+-------------------------
+Valid Range: 0, 1
+0 = Disables DCA support in the driver
+1 = Enables DCA support in the driver
+If the driver is enabled for DCA, this parameter allows load-time control of
+the feature.
+Note: DCA is not supported on X550-based adapters.
+note:
+73
+epidemic(n,adj) trivial(~ details) personality object(to) <contraversy>
+Rank(n,v) <prestige> prestigious tier monetary reference referee <consecutive> continual 
+continuous deport patrol cooperation(collaboration) elevate <disrupt> ridge tilt thermal 
+necessitate hover patriot ingredient(component) ignorant impart budget petition miniature 
+skeleton(bone) recognition plea magnify(amplify) retention premise reside <eligible> 
+congress(parliament) nominate caution(nExtreme caution should be exercised,v) dart dash rush rash  convene 
+<elicit,~ further information> queer(eccentric) nourish 
+obey(comply with)  solo consistent access conviction derail aggravate(vt) deteriorate(vt,vi)) 
+envisage evacuate prompt <haunt> basement allergic disaster doom gloom(deepening ~ in economy) 
+clearance(rubbish ~ operation) entitle versus 
+
+IntMode
+-------
+Valid Range: 0-2 (0 = Legacy Int, 1 = MSI and 2 = MSI-X)
+IntMode controls allow load time control over the type of interrupt
+registered for by the driver. MSI-X is required for multiple queue
+support, and some kernels and combinations of kernel .config options
+will force a lower level of interrupt support.
+'cat /proc/interrupts' will show different values for each type of interrupt.
+
+
+InterruptThrottleRate
+---------------------
+Valid Range:
+0=off
+1=dynamic
+<min_ITR>-<max_ITR>
+Interrupt Throttle Rate controls the number of interrupts each interrupt
+vector can generate per second. Increasing ITR lowers latency at the cost of
+increased CPU utilization, though it may help throughput in some circumstances.
+0 = Setting InterruptThrottleRate to 0 turns off any interrupt moderation
+  and may improve small packet latency. However, this is generally not
+  suitable for bulk throughput traffic due to the increased CPU utilization
+  of the higher interrupt rate.
+  NOTES:
+  - On 82599, and X540, and X550-based adapters, disabling InterruptThrottleRate
+    will also result in the driver disabling HW RSC.
+  - On 82598-based adapters, disabling InterruptThrottleRate will also
+    result in disabling LRO (Large Receive Offloads).
+1 = Setting InterruptThrottleRate to Dynamic mode attempts to moderate
+  interrupts per vector while maintaining very low latency. This can
+  sometimes cause extra CPU utilization. If planning on deploying ixgbe
+  in a latency sensitive environment, this parameter should be considered.
+<min_ITR>-<max_ITR> = 956-488281
+  Setting InterruptThrottleRate to a value greater or equal to <min_ITR>
+  will program the adapter to send at most that many interrupts
+  per second, even if more packets have come in. This reduces interrupt load
+  on the system and can lower CPU utilization under heavy load, but will
+  increase latency as packets are not processed as quickly.
+
+
+
+LLI (Low Latency Interrupts)
+----------------------------
+
+LLI allows for immediate generation of an interrupt upon processing receive
+packets that match certain criteria as set by the parameters described below.
+LLI parameters are not enabled when Legacy interrupts are used. You must be
+using MSI or MSI-X (see cat /proc/interrupts) to successfully use LLI.
+
+Note: LLI is not supported on X550-based adapters.
+
+
+LLIPort
+-------
+Valid Range: 0-65535
+LLI is configured with the LLIPort command-line parameter, which specifies
+which TCP port should generate Low Latency Interrupts.
+For example, using LLIPort=80 would cause the board to generate an immediate
+interrupt upon receipt of any packet sent to TCP port 80 on the local machine.
+WARNING: Enabling LLI can result in an excessive number of interrupts/second
+that may cause problems with the system and in some cases may cause a kernel
+panic.
+
+Note: LLI is not supported on X550-based adapters.
+note:
+40
+<repel,Like poles repel, unlike poles attract,When an army repels an attack, they successfully fight and drive back soldiers from another army who have attacked them.>
+duplicate shove flutter refund 
+hierarchy (tier,A hierarchy is a system of organizing people into different ranks or levels[abstract noun] of importance, for example in society or in a company.) 
+affiliate(n,v) slide spray (sprinkle) 
+portray(When an actor or actress portrays someone, he or she plays that person in a play or film. portrays provincial domestic life) depict(depicts a gloomy America) isolate(insulate segregate[segregate two groups of people or things] 
+separate(adj,v has a separate sitting-room)) 
+exquisite(Something that is exquisite is extremely beautiful or pleasant, especially in a delicate way.) 
+lawsuit(The dispute culminated last week in a lawsuit against the government.) 
+summon(If you summon someone, you order them to come to you.,the courage) 
+intelligible permeate(Bias against women permeates every level of the judicial system) 
+prejudice(Prejudice is an unreasonable dislike of a particular group(adjective +measure word) of people or things, or a preference for one group of people or things over another. bias) 
+coverage(Now a special TV network gives live coverage of most races) 
+paralyse(if a person, place, or organization is paralysed by something, they become unable to act or function properly.) 
+function(If someone or something functions as a particular thing, they do the work or fulfil the purpose of that thing.)
+properly(If someone behaves properly, they behave in a way that is considered acceptable and not rude.)
+installment 
+embody <designate,designate him as E> 
+<limp,In recent years the newspaper had been limping along on limited resources...> 
+<Ivy, Ivy is an evergreen plant that grows up walls or along the ground.~ league> league spacious spatial temporali 
+considerate(I think he's the most charming, most considerate man I've ever known) charming 
+
+LLIPush
+-------
+Valid Range: 0-1
+LLIPush can be set to be enabled or disabled (default). It is most effective
+in an environment with many small transactions.
+NOTE: Enabling LLIPush may allow a denial of service attack.
+
+Note: LLI is not supported on X550-based adapters.
+
+
+LLISize
+-------
+Valid Range: 0-1500
+LLISize causes an immediate interrupt if the board receives a packet smaller
+than the specified size.
+
+Note: LLI is not supported on X550-based adapters.
+
+
+LLIEType
+--------
+Valid Range: 0-0x8FFF
+This parameter specifies the Low Latency Interrupt (LLI) Ethernet protocol type.
+
+Note: LLI is not supported on X550-based adapters.
+note:
+41
+immune(adj,to/from,If you are immune to something that happens or is done, you are not affected by it.Someone or something that is immune from a particular process or situation is able to escape it.) 
+debate(A debate is a discussion about a subject on which people have different views.) 
+<disputei,He disputed the allegations> foretell predict 
+<skeptical(about/of) Many skeptical progressives refuse to agree{active} 
+suspicious(~ actions)>{passive} 
+<endeavor(n,v),I shall endeavor to do my dut> motel bachelor undergraduate postgraduate Ph.D Candidate  
+concern(n,expressed concern aboutv,If something concerns you, it worries you.) 
+<sophomore> junior senior intuition(Her intuition was telling her that something was wrong) 
+superiority kidnap layer(If you layer something, you arrange it in layers.) 
+extract(~ a tooth,To extract a substance means to obtain it from something else, for example by using industrial or chemical processes.) 
+<adolescent,Adolescent is used to describe young people who are no longer children but who have not yet become adults. > 
+<alternate,v,~ sth ,Her aggressive moods alternated with gentle or more co-operative states,adj,in ~ years> alternative betray barrel 
+console(reassure,If you reassure someone, you say or do things to make them stop worrying about something) assure(sb of/that,To assure someone of something means to make certain that they will get it.)
+hoist(n,A hoist is a machine for lifting heavy things. v,If you hoist something heavy somewhere, you lift it or pull it up there.) 
+compliment(If you compliment someone, you pay them a compliment.) 
+<sue> ultimate utmost(My limited diplomatic skills were tested to the utmost) 
+provocative(If you describe someone's clothing or behaviour as provocative, you mean that it is intended to make someone feel sexual desire.) 
+prohibit(~ doing sth)(inhibit) 
+proceed(~ to do sth,She climbed the steps and proceeded along the upstairs hallway) 
+procession(the ~ stretches for miles)precede(If one event or period of time precedes another, it happens before it.
+) 
+precedent(an important precedent for dealing with) 
+predecessor(Your predecessor is the person who had your job before you,The car is some 40mm shorter than its predecessor.) 
+retain(The interior of the shop still retains a nineteenth-century atmosphere) 
+retention(Visual material aids the retention of information.the ~ of the strong central government)
+
+LLIVLANP
+--------
+
+Valid Range: 0-7
+
+This parameter specifies the LLI on VLAN priority threshold.
+
+Note: LLI is not supported on X550-based adapters.
+note:
+49
+prior(to,Prior to his Japan trip) <dividend,The first quarter dividend has been increased by nearly 4 percent.> 
+retort(To retort means to reply angrily to someone.)(contradict,vt) adapt(to/from) <vocal verbal,You use verbal to indicate that something is expressed in speech rather than in writing or action>
+Overcome disregard (dismiss) tame(If you say that something or someone is tame, you are criticizing them for being weak and uninteresting, rather than forceful or shocking) 
+urge exhibit regard(v,~ as,n have ~ for sb/sth) <respect,n,I have tremendous respect for Dean.v> 
+distinctive(Something that is distinctive has a special quality or feature which makes it easily recognizable and different from other things of the same type,the distinctive odour of chlorine) 
+<circulation,money in ~,have the highest ~,Your circulation is the movement of blood through your body.> 
+inherent(The inherent qualities of something are the necessary and natural parts of it.) 
+coherent(sth[sensible],sb,If someone is coherent, they express their thoughts in a clear and calm way, so that other people can understand what they are saying.)
+ sparkle spark exempt medium 
+signify(If you signify something, you make a sign or gesture in order to communicate a particular meaning,they signified their dissent[assent consent resent dissent] ) 
+transit(n,Transit is the carrying of goods or people by vehicle from one place to another.) 
+incidentally(You use incidentally to introduce a point which is not directly relevant to what you are saying, often a question or extra information that you have just thought of.) 
+purchase transfer 
+survive(If you survive in difficult circumstances, you manage to live or continue in spite of them and do not let them affect you very much.)
+undergo(If you undergo something necessary or unpleasant, it happens to you.New recruits have been undergoing training in recent weeks) 
+withstand(~ chemical attack) 
+alien(adj,n,An alien is someone who is not a legal citizen of the country in which they live.) 
+<refrain from doing> restrain(~ emotion) 
+transport fringe proximity exceed transcend <surpass,~expectation> contribute(~ to sth,~ money to ) 
+baffle(If something baffles you, you cannot understand it or explain it.An apple tree producing square fruit is baffling experts.) 
+authorize(It would certainly be within his power to authorize a police raid like that.) 
+displace(These factories have displaced tourism as the country's largest source of foreign exchange) 
+revenge(~ [oneself on sb/sth],The attackers were said to be taking revenge on the 14-year-old, claiming he was a school bully) 
+decisive(He should give way to a younger, more decisive leader.) 
+denounce(If you denounce a person or an action, you criticize them severely and publicly because you feel strongly that they are wrong or evil.) 
+condemn(~ to,The murderers were condemned to death) 
+deplore(If you say that you deplore something, you think it is very wrong or immoral. deplore an event or action not a person) 
+sense(If you sense something, you become aware of it or you realize it, although it is not very obvious.) 
+<abundance(an ~ of) appease (~ sb)>
+
+
+Flow Control
+------------
+Ethernet Flow Control (IEEE 802.3x) can be configured with ethtool to enable 
+receiving and transmitting pause frames for ixgbe. When transmit is enabled, 
+pause frames are generated when the receive packet buffer crosses a predefined 
+threshold. When receive is enabled, the transmit unit will halt for the time 
+delay specified when a pause frame is received. 
+
+NOTE: You must have a flow control capable link partner.
+
+Flow Control is enabled by default.
+
+Use ethtool to change the flow control settings.
+
+To enable or disable rx or tx Flow Control:
+ethtool -A eth? rx <on|off> tx <on|off>
+Note: This command only enables or disables Flow Control if auto-negotiation is 
+disabled. If auto-negotiation is enabled, this command changes the parameters 
+used for auto-negotiation with the link partner.
+
+To enable or disable auto-negotiation:
+ethtool -s eth? autoneg <on|off>
+Note: Flow Control auto-negotiation is part of link auto-negotiation. Depending 
+on your device, you may not be able to change the auto-negotiation setting.
+
+NOTE: For 82598 backplane cards entering 1 gigabit mode, flow control default 
+behavior is changed to off. Flow control in 1 gigabit mode on these devices can 
+lead to transmit hangs.
+
+
+Intel(R) Ethernet Flow Director
+-------------------------------
+NOTE: Intel Ethernet Flow Director parameters are only supported on kernel 
+versions 2.6.30 or newer.
+
+The Intel Ethernet Flow Director performs the following tasks:
+note:
+40
+Prescribe(Our doctor diagnosed a throat infection and prescribed antibiotic and junior aspirin) 
+generate merit(n,v He said he had done nothing wrong to merit a criminal investigation) 
+scope <reclaim(got the right to reclaim South African citizenship) 
+withdraw> molecule hook sole(~ aim,~provider) negotiate 
+farewell(~ festival)
+feast(A feast is a large and special meal.) 
+potential(adj,n The boy has great potential) 
+independent reward(n,as a reward for good spelling ,v If you do something and are rewarded with a particular benefit, you receive that benefit as a result of doing that thing.) 
+<threshold,set a ~> advocate rebellion(The British soon put down the rebellion.) 
+<rebel> illustrate battery shield register retreat(retreat from something such as a plan or a way of life) 
+<cripple,n,v seriously crippled in an accident> supreme(~ commander) 
+collide(with) 
+<discharge(When someone is discharged from hospital, prison, or one of the armed services, they are officially allowed to leave, or told that they must leave.He has a broken nose but may be discharged today...) If something is discharged from inside a place, it comes out.> expose 
+relevant(We are trying to make politics more relevant to younger people.) 
+democracy(n,Democracy is a system of government in which people choose their rulers by voting for them in elections.A democracy is a country in which the people choose their government by voting for it.) <dash,If you dash somewhere, you run or go there quickly and suddenly.> 
+slash(If you slash at a person or thing, you quickly hit at them with something such as a knife.To slash something such as costs or jobs means to reduce them by a large amount.) 
+splash(splash a liquid somewhere or if it splashes)
+ <lash>(v,n with unusually long lashes) 
+<distract(distracts you or your attention from something)> <reel>(a 30m reel of cable) resolve provide
+
+- Directs receive packets according to their flows to different queues.
+- Enables tight control on routing a flow in the platform.
+- Matches flows and CPU cores for flow affinity.
+- Supports multiple parameters for flexible flow classification and load
+  balancing (in SFP mode only).
+
+NOTE: An included script (set_irq_affinity) automates setting the IRQ to CPU 
+affinity.
+
+NOTE: Intel Ethernet Flow Director masking works in the opposite manner from 
+subnet masking. In the following command:
+  #ethtool -N eth11 flow-type ip4 src-ip 172.4.1.2 m 255.0.0.0 dst-ip \
+  172.21.1.1 m 255.128.0.0 action 31
+The src-ip value that is written to the filter will be 0.4.1.2, not 172.0.0.0 
+as might be expected. Similarly, the dst-ip value written to the filter will be 
+0.21.1.1, not 172.0.0.0.
+
+ethtool commands:
+
+To enable or disable the Intel Ethernet Flow Director:
+
+  # ethtool -K ethX ntuple <on|off>
+note:
+47
+<segment,the poorer segments of society> 
+sore <render ,~ service to > provoke(do something to ~ them) 
+<reject> format refuge innocent 
+institute(the National Cancer Institute. If you institute a system, rule, or course of action, you start it.We will institute a number of measures to better safeguard the public.) mood <imperative> facility(Facilities are buildings, pieces of equipment, or services that are provided for a particular purpose. If you have a facility for something, for example learning a language, you find it easy to do. He and Marcia shared a facility for languages.) 
+confident(<confidential,leaking confidential information about her private life>)
+ imitate(If you imitate someone, you copy what they do or produce) 
+simulate(If you simulate an action or a feeling, you pretend that you are doing it or feeling it) 
+spite(out of spite,in ~ of) <sheer,~ delight,~ cliff> 
+complain investigate 
+brand(When you brand an animal, you put a permanent mark on its skin in order to show who it belongs to, usually by burning a mark onto its skin.
+) 
+principle(Scientific principles are general scientific laws which explain how something happens or works.) 
+compose 
+convey(When I returned home, I tried to convey the wonder of this machine to my husband.) 
+<award() reward> resign representative n award is a prize or certificate that a person is given for doing something well.If someone is awarded something such as a prize or an examination mark, it is given to them.)
+found (establish) <accommodate> accommodation(temporary ~,An accommodation is an agreement between different people which enables [them/sb to do] to exist together without trouble. ~ with) deliver 
+contest(A contest is a competition or game in which people try to win.If you contest a statement or decision, you object to it formally because you think it is wrong or unreasonable.) 
+venture(n A venture is a project or activity which is new, exciting, and difficult because it involves the risk of failure.,v to do ) custom (convention,It's just a social convention that men don't wear skirts,A convention is an official agreement between countries or groups of people.) <drain> 
+<sketch,v If you sketch a situation or incident, you give a short description of it, including only the most important facts. n> 
+<anonymous> necessity(Water is a basic necessity of life.There is agreement on the necessity of reforms) 
+claim (~ what was theirs)(exclaim,he ~ impatiently )
+<acclaim,widely praised,Critics acclaimed her performance.
+acclamation,earned worldwide acclamation for her charitable works> ) 
+
+When disabling ntuple filters, all the user programed filters are flushed from 
+the driver cache and hardware. All needed filters must be re-added when ntuple 
+is re-enabled.
+
+To add a filter that directs packet to queue 2, use -U or -N switch:
+
+  # ethtool -N ethX flow-type tcp4 src-ip 192.168.10.1 dst-ip \
+  192.168.10.2 src-port 2000 dst-port 2001 action 2 [loc 1]
+
+To see the list of filters currently present:
+  # ethtool <-u|-n> ethX
+
+
+Perfect Filter
+--------------
+
+Perfect filter is an interface to load the filter table that funnels all
+traffic through RSS for queue assignment unless an alternative queue is
+specified using "action". In that case, any traffic flow that matches the
+filter criteria is directed to the specified queue.
+
+note:
+50
+promote <fundamental,~ principles> rupture(n,v) <crack,v,n> pierce immense 
+<tremendous> applicant medium <restrain> 
+<intense(Intense is used to describe something that is very great or extreme in strength or degree.He was sweating from the intense heat..),intensely,~ competitive> 
+<refute,If you refute an argument, accusation, or theory, you prove that it is wrong or untrue.> 
+accumulate contract(n,v ~ with sb to do sth) 
+radiate emit( emits heat, light, gas, or a smell) turbulent emphasize blame(v,n) 
+<reproach,blame,disgrace> 
+inferior(He preferred the company of those who were intellectually inferior to himself.) 
+observe midst session 
+<bound> bind contact reinforce enhance strengthen violate 
+intelligent(A person or animal that is intelligent has the ability to think, understand, and learn things quickly and well.) 
+intellectual(n,teachers, artists and other intellectuals,adj,damage the intellectual development of children)
+<trace(you trace the origin or development of something) track trail> punctual encounter confront <virtually virtual> face skip 
+infer(~ from/that ... ) deduce temptation disposal(of) 
+combine(If you combine two or more things or if they combine, they exist together.) 
+involve(~ in,include) administration veil(A veil is a piece of thin soft cloth that women sometimes wear over their heads and which can also cover their face.
+) 
+evil(If you describe someone as evil, you mean that they are very wicked by nature and take pleasure in doing things that harm other people.
+) mask 
+
+Support for Virtual Function (VF) is through the user data field. ethtool must
+be updated to the version built for the 2.6.40 kernel. Perfect Filter is
+supported on all kernels 2.6.30 and later. Rules may be deleted from the table
+itself. This is done using "ethtool -U ethX delete N", where N is the rule
+number to be deleted.
+
+NOTE: Flow Director Perfect Filters can run in single queue mode when SR-IOV
+is enabled or when DCB is enabled.
+
+If the queue is defined as -1, the filter will drop matching packets.
+
+To account for filter matches and misses, there are two stats in ethtool:
+fdir_match and fdir_miss. In addition, rx_queue_N_packets shows the number of
+packets processed by the Nth queue.
+
+NOTES:
+- Receive Packet Steering (RPS) and Receive Flow Steering (RFS) are not
+  compatible with Flow Director. If Flow Director is enabled, these will be
+  disabled
+- For VLAN Masks only four masks are supported.
+- Once a rule is defined, you must supply the same fields and masks (if
+  masks are specified).
+
+
+Support for UDP RSS
+-------------------
+
+This feature adds an ON/OFF switch for hashing over certain flow types. Only
+UDP can be turned on. The default setting is disabled.
+
+Only support for enabling/disabling hashing on ports for UDP over IPv4 (UDP4) or
+IPv6 (UDP6) is supported.
+
+NOTE: Fragmented packets may arrive out of order when RSS UDP support is
+configured.
+
+note:
+63
+practical(You can describe clothes and things in your house as practical when they are suitable for a particular purpose rather than just being fashionable or attractive. <feasible>) surrender(vi,vt If you surrender something such as a ticket or your passport, you give it to someone in authority when they ask you to.) 
+deceive(His gentle, kindly appearance did not deceive me) 
+immigrant emmigrant numerous massive reliable() 
+prospect <<justify,To justify a decision, action, or idea means to show or prove that it is reasonable or necessary.~ a war>> criticize integrate(with/into) current dive leap(If you leap, you jump high in the air or jump a long distance.) 
+suicide invest indifferent 
+impose cultivate(land/crops If you cultivate an attitude, image, or skill, you try hard to develop it and make it stronger or better.) 
+galaxy conjunction(in ~ with) reflection 
+<campaign,During his election campaign,The allies are intensifying their air campaign.> 
+diminish(decrease) 
+intensify (If you intensify something or if it intensifies, it becomes greater in strength, amount, or degree.)
+
+suspect(be suspicious of) speculate(about/Big farmers are moving in, not in order to farm, but in order to speculate with rising land prices.) 
+
+resist(doing sth,The man was shot outside his house as he tried to resist arrest)volume(a given volume of air contains only about one-third as much oxygen as it would at sea level.) despite heighten compile acquire 
+
+<executive,~ briefcase> <previous> 
+Supported Ethtool Commands and Options:
+  -n --show-nfc
+    Retrieves the receive network flow classification configurations.
+  rx-flow-hash tcp4|udp4|ah4|esp4|sctp4|tcp6|udp6|ah6|esp6|sctp6
+    Retrieves the hash options for the specified network traffic type.
+  -N --config-nfc
+    Configures the receive network flow classification.
+  rx-flow-hash tcp4|udp4|ah4|esp4|sctp4|tcp6|udp6|ah6|esp6|sctp6
+  m|v|t|s|d|f|n|r...
+    Configures the hash options for the specified network traffic type.
+
+note:
+following the previous note
+feature lens prevail territory(abstract/concrete You can use territory to refer to an area of knowledge or experience.
+) industrial halt flare <<offense>> absorb 
+chaos <mess,n,If you say that something is a mess or in a mess, you think that it is in an untidy state.The house is a mess> 
+disorder(n nerve ~,v He called on the authorities to stop public disorder.) 
+clue(a clue to the puzzle of why our cells get old and die.) hint(n,v) opponent 
+<grieve,grief> specific(specific areas of the body.) decent descend <respectful> remedy threaten 
+specialize plentiful abundant crisis 
+
+Supported Ethtool Commands and Options:
+  -n --show-nfc
+    Retrieves the receive network flow classification configurations.
+  rx-flow-hash tcp4|udp4|ah4|esp4|sctp4|tcp6|udp6|ah6|esp6|sctp6
+    Retrieves the hash options for the specified network traffic type.
+  -N --config-nfc
+    Configures the receive network flow classification.
+  rx-flow-hash tcp4|udp4|ah4|esp4|sctp4|tcp6|udp6|ah6|esp6|sctp6
+  m|v|t|s|d|f|n|r...
+    Configures the hash options for the specified network traffic type.
+	udp4	UDP over IPv4
+	udp6	UDP over IPv6
+	f	Hash on bytes 0 and 1 of the Layer 4 header of the rx packet.
+	n	Hash on bytes 2 and 3 of the Layer 4 header of the rx packet.
+
+The following is an example using udp4 (UDP over IPv4):
+  - To include UDP port numbers in RSS hashing run:
+    ethtool -N ethX rx-flow-hash udp4 sdfn
+
+  - To exclude UDP port numbers from RSS hashing run:
+    ethtool -N ethX rx-flow-hash udp4 sd
+
+  - To display UDP hashing current configuration run:
+    ethtool -n ethX rx-flow-hash udp4
+
+The results of running that call will be the following, if UDP hashing is
+enabled.
+
+note:
+47
+<stretch(n,v)stretch> link polish refugee vow(n,v to do sth) pledge(v,n) 
+initiate hemisphere remark 
+<division,In a large organization, a division is a group of departments whose work is done in the same place or is connected with similar tasks.> 
+label preserve(conserve energy) <<burst,vi,vt>> relay nominate discard option peak 
+climax committee complaint analyse abstract concrete 
+<trial,A trial is a formal meeting in a law court, at which a judge and jury listen to evidence and decide whether a person is guilty of a crime. clinical trialsl
+><coordinate,Can you give me your co-ordinates,She'll show you how to co-ordinate pattern and colours.> cite 
+
+nevertheless dismay(n,with ~,v,The committee was dismayed by what it had been told.) 
+depress inquire vary allowance <<subsidy(A subsidy is money that is paid by a government or other authority in order to help an industry or business, or to pay for a public service. a massive demonstration against farm subsidy cuts) subsidiary(n,adj, a ~ role)>> provoke 
+voluntary submit(to) ratio privacy source schedule revise evaluate mobile refine 
+
+  UDP over IPV4 flows use these fields for computing Hash flow key:
+    IP SA
+    IP DA
+    L4 bytes 0 & 1 [TCP/UDP src port]
+    L4 bytes 2 & 3 [TCP/UDP dst port]
+
+The results if UDP hashing is disabled are shown below.
+  UDP over IPV4 flows use these fields for computing Hash flow key:
+    IP SA
+    IP DA
+
+Parameters FdirPballoc and AtrSampleRate impact Flow Director.
+
+
+FdirPballoc
+-----------
+Valid Range: 1-3
+Specifies the Flow Director allocated packet buffer size.
+1 = 64k
+2 = 128k
+3 = 256k
+
+
+AtrSampleRate
+-------------
+Valid Range: 0-255
+This parameter is used with the Flow Director and is the software ATR transmit
+packet sample rate. For example, when AtrSampleRate is set to 20, every 20th
+packet looks to see if the packet will create a new flow. A value of 0
+indicates that ATR should be disabled and no samples will be taken.
+
+
+max_vfs
+-------
+This parameter adds support for SR-IOV. It causes the driver to spawn up to 
+max_vfs worth of virtual functions.
+Valid Range: 1-63
+If the value is greater than 0 it will also force the VMDq parameter to be 1 or 
+more.
+
+NOTE: This parameter is only used on kernel 3.7.x and below. On kernel 3.8.x 
+and above, use sysfs to enable VFs. Also, for Red Hat distributions, this 
+parameter is only used on version 6.6 and older. For version 6.7 and newer, use 
+sysfs. For example:
+#echo $num_vf_enabled > /sys/class/net/$dev/device/sriov_numvfs	//enable 
+VFs
+#echo 0 > /sys/class/net/$dev/device/sriov_numvfs	//disable VFs
+
+note:
+37
+honorable honorary glorious (wonderful magnificent) rust reject 
+vital(The port is vital to supply relief to millions of drought victims.) 
+swell( to some extent) tough ripe substance(radioactive ~) conversation 
+overnight(adv) optical(defect) 
+work all through the night,all throuth the lunch
+pinch extensive(~ coverage) civilization <astonishing stunning,~ defeat> (climb vt,creep crawl,vi) 
+appearance realm(political ~,Defence of the realm is crucial.) tan sorrow(Sorrow is a feeling of deep sadness or regret)(strength) tender(rough) (object/oppose to)objection 
+opposition(position) hypocritical irony(They find only irony in the narrator's concern) 
+(junk food)
+
+The parameters for the driver are referenced by position. Thus, if you have a 
+dual port adapter, or more than one adapter in your system, and want N virtual 
+functions per port, you must specify a number for each port with each parameter 
+separated by a comma. For example:
+
+  modprobe ixgbe max_vfs=4
+
+This will spawn 4 VFs on the first port.
+
+  modprobe ixgbe max_vfs=2,4
+
+This will spawn 2 VFs on the first port and 4 VFs on the second port.
+
+NOTE: Caution must be used in loading the driver with these parameters. 
+Depending on your system configuration, number of slots, etc., it is impossible 
+to predict in all cases where the positions would be on the command line.
+
+NOTE: Neither the device nor the driver control how VFs are mapped into config 
+space. Bus layout will vary by operating system. On operating systems that 
+support it, you can check sysfs to find the mapping.
+
+
+NOTE: When either SR-IOV mode or VMDq mode is enabled, hardware VLAN filtering 
+and VLAN tag stripping/insertion will remain enabled. Please remove the old 
+VLAN filter before the new VLAN filter is added. For example,
+ip link set eth0 vf 0 vlan 100	// set vlan 100 for VF 0
+ip link set eth0 vf 0 vlan 0	// Delete vlan 100
+ip link set eth0 vf 0 vlan 200	// set a new vlan 200 for VF 0
+
+With kernel 3.6, the driver supports the simultaneous usage of max_vfs and DCB 
+features, subject to the constraints described below. Prior to kernel 3.6, the 
+driver did not support the simultaneous operation of max_vfs greater than 0 and 
+the DCB features (multiple traffic classes utilizing Priority Flow Control and 
+Extended Transmission Selection).
+
+When DCB is enabled, network traffic is transmitted and received through 
+multiple traffic classes (packet buffers in the NIC). The traffic is associated 
+with a specific class based on priority, which has a value of 0 through 7 used 
+in the VLAN tag. When SR-IOV is not enabled, each traffic class is associated 
+with a set of receive/transmit descriptor queue pairs. The number of queue 
+pairs for a given traffic class depends on the hardware configuration. When 
+SR-IOV is enabled, the descriptor queue pairs are grouped into pools. The 
+Physical Function (PF) and each Virtual Function (VF) is allocated a pool of 
+receive/transmit descriptor queue pairs. When multiple traffic classes are 
+configured (for example, DCB is enabled), each pool contains a queue pair from 
+each traffic class. When a single traffic class is configured in the hardware, 
+the pools contain multiple queue pairs from the single traffic class.
+note:
+blunt(she is ~ about his personal life. a ~ blade) 
+blade(the blades of a propeller are the long,flat parts that turn round.)
+terrific(If you describe something or someone as terrific, you are very pleased with them or very impressed by them)
+What a ~ idea!
+energy(Plants get ~ from the sun.) veteran (a ~ worker/soldier/politician) conclude (~ via scientific research)
+mission( accomplish one`s ~,the head of the mission in South Africa)
+cunning slippery severely(His actions were ~ restricted!) magnificent( ~ monument) [brittle](a ~ promise,~woman)
+exclaim(Writers sometimes use exclaim to show that someone is speaking suddenly, loudly, or emphatically, often because they are excited, shocked, or angry.)
+scream(When someone screams, they make a very loud, high-pitched cry, for example because they are in pain or are very frightened.)
+[whereas](conj, Some like him,~ others hate him); [faithful](be ~ to his promise,a ~ friend)
+<scorn,vt,scorn one`s help,n,pour scorn on my suggestions> alternative(n,have the ~ of riding or walking,have no ~ but stay at home, adj, find ~ means of transport),iron(n,v,the shirt irons well) 
+crust(the ~ of the bread is burnt,the earth`s crust) passive (take a passive attitude to ) 
+prime (adj,~ minister,a task of prime importance,in the prime of life) 
+<desperate,be ~ for toilet,make ~ efforts to pass the exam,the situation is ~> expose(expose students to art)
+rank(v,n,an official of the senior rank,the top ranked university,the university ranking) squirrel 
+bark(v,n take the bark off a tree) 
+counsel(v,n,In the end,wiser counsels prevailed.If you counsel someone to take a course of action, or if you counsel a course of action, you advise that course of action.)
+clay(form a bowl from clay,what a lovely clay doll)
+boundary(n,The boundaries between history and storytelling are always being blurred and muddled.The boundary of an area of land is an imaginary line that separates it from other areas.)
+certainty(have ~ of success, say with ~) devise(~ an instument\a strategy) 
+sticky(~ mud,~ situation) excessive(~ high taxes) jolly(a ~ soul\mood\time) 
+conservation(~ of soil and water,new land use and ~ policies) manufacturer(textile ~,foreign ~) 
+grasp(v,n,the book is beyond his ~,grasp any chance to make money) 
+naughty(~ child) confident(He noticed her confident smile,be ~ in him ) 
+pose(pose for camera,pose a threat\a danger to ) equivalent(n,a Chinese ~ of that world,~ amount) 
+tire(pump the ~,I never tired of reading) independent(an ~ country) 
+production(go into mass ~,rice ~) examine(~ the bill before you pay it.~ the students in music.)
+contrary(be ~ to popular belief,~ to all expectations,a ~ opinion) 
+fundamental(n,hadr work is ~ to success,adj,the ~ interests of the people)
+amid(keep calm amid confusion) occupy(occupy seats\an important position) reward(be rewarded for his charity)
+silver(silver goods) essential(meet the ~ requirements) restraint(in ~ of trade) practise(~ english conversation) 
+flush(~ the lavatory,~ with anger) 
+laundry(A laundry is a firm that washes and irons clothes, sheets, and towels for people.) 
+recollect(~ sweet memories,~ meeting sb) gown(evening\ball\wedding ~) premier(our beloved Premier) 
+campus(fascinating ~) Arabian(the ~ penisula\be married to an ~) proof(sufficient ~\legal ~,v,proof against water) 
+flame(the dry sticks burst into ~,~s consume a building) alphabet(english ~,the ~ of mathematics) 
+adventure(Her ~s in Africa,set off for an ~ in the forest.)
+encounter(n,unexpected ~,chance ~,v,first ~ with the man)
+
+
+The number of VFs that can be allocated depends on the number of traffic 
+classes that can be enabled. The configurable number of traffic classes for 
+each enabled VF is as follows:
+0 - 15 VFs = Up to 8 traffic classes, depending on device support
+16 - 31 VFs = Up to 4 traffic classes
+32 - 63 VFs = 1 traffic class
+
+When VFs are configured, the PF is allocated one pool as well. The PF supports 
+the DCB features with the constraint that each traffic class will only use a 
+single queue pair. When zero VFs are configured, the PF can support multiple 
+queue pairs per traffic class.
+
+
+Configuring SR-IOV for improved network security
+------------------------------------------------
+In a virtualized environment, on Intel(R) Ethernet Server Adapters that support 
+SR-IOV, the virtual function (VF) may be subject to malicious behavior. 
+Software-generated layer two frames, like IEEE 802.3x (link flow control), IEEE 
+802.1Qbb (priority based flow-control), and others of this type, are not 
+expected and can throttle traffic between the host and the virtual switch, 
+reducing performance. To resolve this issue, configure all SR-IOV enabled ports 
+for VLAN tagging. This configuration allows unexpected, and potentially 
+malicious, frames to be dropped.
+
+
+Configuring VLAN tagging on SR-IOV enabled adapter ports
+--------------------------------------------------------
+To configure VLAN tagging for the ports on an SR-IOV enabled adapter, use the 
+following command. The VLAN configuration should be done before the VF driver 
+is loaded or the VM is booted.
+
+$ ip link set dev <PF netdev id> vf <id> vlan <vlan id>
+
+note:
+entrance fancy department preferable beard(A man's beard is the hair that grows on his chin and cheeks.) 
+moustache(A man's moustache is the hair that grows on his upper lip. If it is very long, it is sometimes referred to as his moustaches .)
+revenue(Revenue is money that a company, organization, or government receives from people. record advertising ~ ) 
+annoy(a fly keeps annoying,annoy the neighbour with loud music) greet(I greet you in name of the President,greet each other in shaking hands) propose(~ a feasible solution) 
+preferable(He finds country life ~) 
+department(A department is one of the sections in an organization such as a government, business, or university. A department is also one of the sections in a large shop. teach in the English ~) entrance(~ to the theater) 
+entry(If you gain entry to a particular place, you are able to go in.)
+aural(the opera is an aural delight) lane(winding lane\rough lane\double lane) aboard() 
+distribute(~ flies to the passers-bylll) rally(n,hold a ~,rally the men on the playing field) 
+ally(A country's ally is another country that has an agreement to support it, especially in war.v,If you ally yourself with someone or something, you give your support to them.) 
+hollow(~ eyes\tube) neighborhood(A place in the neighbourhood of another place is near it. be liked by the whole ~) 
+acknowledge(He ~ed his faults.~ the importance of learning english,~ one`s help) object(an object of study.v,object to his plan) 
+
+For example, the following instructions will configure PF eth0 and the first VF 
+on VLAN 10.
+$ ip link set dev eth0 vf 0 vlan 10
+
+
+L2LBen
+------
+Valid Range: 0 (disabled), 1 (enabled)
+This parameter controls the internal switch (L2 loopback between pf and vf).
+By default the switch is enabled.
+
+
+LRO
+---
+Valid Range: 0(off), 1(on)
+Large Receive Offload (LRO) is a technique for increasing inbound throughput
+of high-bandwidth network connections by reducing CPU overhead. It works by
+aggregating multiple incoming packets from a single stream into a larger
+buffer before they are passed higher up the networking stack, thus reducing
+the number of packets that have to be processed. LRO combines multiple
+Ethernet frames into a single receive in the stack, thereby potentially
+decreasing CPU utilization for receives.
+This technique is also referred to as Hardware Receive Side Coalescing
+(HW RSC). 82599 and X540, and X550-based adapters support HW RSC. The
+LRO parameter controls HW RSC enablement.
+You can verify that the driver is using LRO by looking at these counters in
+ethtool:
+- hw_rsc_aggregated - counts total packets that were combined
+- hw_rsc_flushed - counts the number of packets flushed out of LRO
+NOTE: IPv6 and UDP are not supported by LRO.
+
+
+EEE
+---
+Valid Range: 0-1
+0 = Disables EEE
+1 = Enables EEE
+A link between two EEE-compliant devices will result in periodic bursts of
+data followed by periods where the link is in an idle state. This Low Power
+Idle (LPI) state is supported in both 1 Gbps and 10 Gbps link speeds.
+
+NOTES: EEE support requires auto-negotiation.
+  Both link partners must support EEE.
+  EEE is not supported on all Intel(R) Ethernet Network devices or at all link 
+speeds.
+note:
+Oceania(~ is the smallest continent) distract(vt,Don`t distract my attention.Children are easily ~ed). 
+lame(He is lame in the left leg.) offer(offer a suggestion/service)
+disposal(the safety disposal of nuclear waste,My services are at your disposal.)
+advantage(to one`s ~/have an advantage over sb/take advantage of sb) furnace(electric ~,the flame in the furnace)
+judgement(the judge passed the ~ on the guilty man,make serious errors of judgement) 
+turbulent(a ~ nation/period of history/situation) flexible(It is ~ and foldable.) case(pencil case/lay one`s case before the doctor/special case) intensive(~ agriculture/care/reading) broom(sweep the floor with broom)
+secondary(ignore the secondary factors/receive secondary education) passport(hold an American passport,take your passport with you) thinking(wishful ~/) wish(n,v We wish you success in your new business.)
+DMAC
+----
+Valid Range: 0, 41-10000
+This parameter enables or disables DMA Coalescing feature. Values are in
+microseconds and set the internal DMA Coalescing internal timer.
+DMAC is available on Intel(R) X550 (and later) based adapters.
+DMA (Direct Memory Access) allows the network device to move packet data
+directly to the system's memory, reducing CPU utilization. However, the
+frequency and random intervals at which packets arrive do not allow the
+system to enter a lower power state. DMA Coalescing allows the adapter
+to collect packets before it initiates a DMA event. This may increase
+network latency but also increases the chances that the system will enter
+a lower power state.
+Turning on DMA Coalescing may save energy with kernel 2.6.32 and newer.
+DMA Coalescing must be enabled across all active ports in order to save
+platform power.
+InterruptThrottleRate (ITR) should be set to dynamic. When ITR=0, DMA
+Coalescing is automatically disabled.
+A whitepaper containing information on how to best configure your platform is
+available on the Intel website.
+
+
+MDD (Malicious Driver Detection)
+--------------------------------
+Valid Range: 0-1
+0 = Disabled
+1 = Enabled
+This parameter is only relevant for devices operating in SR-IOV mode.
+When this parameter is set, the driver detects malicious VF driver and
+disables its Tx/Rx queues until a VF driver reset occurs.
+
+
+AQRate
+------
+
+Devices that support AQRate (X550 and later) will include 2.5 Gbps and 
+5 Gbps in the speeds that the driver advertises during auto-negotiation,
+even though ethtool will not display 2.5 Gbps or 5 Gbps as "Supported link
+modes" or "Advertised link modes." These speeds are only available through
+unmodified auto-negotiation. You cannot use ethtool -s advertise to force
+auto-negotiation to advertise 2.5 Gbps or 5 Gbps. If a 2.5 Gbps or 5 Gbps
+link is created, ethtool will report the correct link speed.
+
+
+================================================================================
+
+
+Additional Features and Configurations
+-------------------------------------------
+
+
+Configuring the Driver on Different Distributions
+-------------------------------------------------
+Configuring a network driver to load properly when the system is started is 
+distribution dependent. Typically, the configuration process involves adding an 
+alias line to /etc/modules.conf or /etc/modprobe.conf as well as editing other 
+system startup scripts and/or configuration files. Many popular Linux 
+distributions ship with tools to make these changes for you. To learn the 
+proper way to configure a network device for your system, refer to your 
+distribution documentation. If during this process you are asked for the driver 
+or module name, the name for the Base Driver is ixgbe.
+
+For example, if you install the ixgbe driver for two adapters (eth0 and eth1) 
+and want to set the interrupt mode to MSI-X and MSI, respectively, add the 
+following to modules.conf or /etc/modprobe.conf:
+alias eth0 ixgbe
+alias eth1 ixgbe
+options ixgbe InterruptThrottleRate=3,1
+
+
+Viewing Link Messages
+---------------------
+Link messages will not be displayed to the console if the distribution is 
+restricting system messages. In order to see network driver link messages on 
+your console, set dmesg to eight by entering the following:
+dmesg -n 8
+
+NOTE: This setting is not saved across reboots.
+
+
+Jumbo Frames
+------------
+Jumbo Frames support is enabled by changing the Maximum Transmission Unit (MTU) 
+to a value larger than the default value of 1500.
+
+Use the ifconfig command to increase the MTU size. For example, enter the 
+following where <x> is the interface number:
+
+   ifconfig eth<x> mtu 9000 up
+Alternatively, you can use the ip command as follows:
+   ip link set mtu 9000 dev eth<x>
+   ip link set up dev eth<x>
+
+NOTE: The maximum MTU setting for Jumbo Frames is 9710. This value coincides 
+with the maximum Jumbo Frames size of 9728 bytes.
+
+NOTE: This driver will attempt to use multiple page sized buffers to receive 
+each jumbo packet. This should help to avoid buffer starvation issues when 
+allocating receive packets.
+
+NOTE: For 82599-based network connections, if you are enabling jumbo frames in 
+a virtual function (VF), jumbo frames must first be enabled in the physical 
+function (PF). The VF MTU setting cannot be larger than the PF MTU.
+
+
+ethtool
+-------
+The driver utilizes the ethtool interface for driver configuration and 
+diagnostics, as well as displaying statistical information. The latest ethtool 
+version is required for this functionality. Download it at:
+http://ftp.kernel.org/pub/software/network/ethtool/
+
+
+Speed and Duplex Configuration
+------------------------------
+In addressing speed and duplex configuration issues, you need to distinguish 
+between copper-based adapters and fiber-based adapters.
+
+In the default mode, an Intel(R) Ethernet Network Adapter using copper 
+connections will attempt to auto-negotiate with its link partner to determine 
+the best setting. If the adapter cannot establish link with the link partner 
+using auto-negotiation, you may need to manually configure the adapter and link 
+partner to identical settings to establish link and pass packets. This should 
+only be needed when attempting to link with an older switch that does not 
+support auto-negotiation or one that has been forced to a specific speed or 
+duplex mode. Your link partner must match the setting you choose. 1 Gbps speeds 
+and higher cannot be forced. Use the autonegotiation advertising setting to 
+manually set devices for 1 Gbps and higher.
+
+Speed, duplex, and autonegotiation advertising are configured through the 
+ethtool* utility. ethtool is included with all versions of Red Hat after Red 
+Hat 7.2. For the latest version, download and install ethtool from the 
+following website:
+
+   http://ftp.kernel.org/pub/software/network/ethtool/
+
+Caution: Only experienced network administrators should force speed and duplex 
+or change autonegotiation advertising manually. The settings at the switch must 
+always match the adapter settings. Adapter performance may suffer or your 
+adapter may not operate if you configure the adapter differently from your 
+switch.
+
+An Intel(R) Ethernet Network Adapter using fiber-based connections, however, 
+will not attempt to auto-negotiate with its link partner since those adapters 
+operate only in full duplex and only at their native speed.
+
+NOTE: For the Intel(R) Ethernet Connection X552 10 GbE SFP+ you must specify 
+the desired speed. 
+
+
+MAC and VLAN anti-spoofing feature
+----------------------------------
+
+When a malicious driver attempts to send a spoofed packet, it is dropped by
+the hardware and not transmitted.
+
+An interrupt is sent to the PF driver notifying it of the spoof attempt.
+When a spoofed packet is detected, the PF driver will send the following
+message to the system log (displayed by the "dmesg" command):
+ixgbe ethX: ixgbe_spoof_check: n spoofed packets detected
+where "x" is the PF interface number; and "n" is number of spoofed packets.
+NOTE: This feature can be disabled for a specific Virtual Function (VF).
+ip link set <pf dev> vf <vf id> spoofchk {off|on}
+
+
+IPRoute2 Tool for setting MAC address, VLAN and rate limit
+----------------------------------------------------------
+
+You can set a MAC address of a Virtual Function (VF), a default VLAN and the
+rate limit using the IProute2 tool. Download the latest version of the
+iproute2 tool from Sourceforge if your version does not have all the features
+you require.
+
+
+Wake on LAN Support (WoL)
+-------------------------
+
+Some adapters do not support Wake on LAN. To determine if your adapter
+supports Wake on LAN, run
+  ethtool ethX
+
+The Intel(R) Ethernet Converged Network Adapter X550-T1 and Intel(R) Ethernet
+Converged Network Adapter X550-T2 have a manageability/AUX power connector.
+These devices only support WoL if AUX power is supplied via this connector.
+Note that this is system and adapter specific. Some with this connector do not
+support WoL. Some systems do not provide the correct power connection. See your
+system documentation for details.
+
+
+IEEE 1588 Precision Time Protocol (PTP) Hardware Clock (PHC)
+------------------------------------------------------------
+
+Precision Time Protocol (PTP) is used to synchronize clocks in a computer
+network. PTP support varies among Intel devices that support this driver.
+Use "ethtool -T <netdev name>" to get a definitive list of PTP capabilities
+supported by the device.
+
+IXGBE_PTP is a compile time flag. The user can enable it at compile time to add
+support for PTP from the driver. The flag is used by editing the make file
+as follows when it is being compiled:
+
+>make CFLAGS_EXTRA="-DIXGBE_PTP" install
+
+
+VXLAN Overlay HW Offloading
+---------------------------
+
+Virtual Extensible LAN (VXLAN) allows you to extend an L2 network over an L3 
+network, which may be useful in a virtualized or cloud environment. Some 
+Intel(R) Ethernet Network devices perform VXLAN processing, offloading it from 
+the operating system. This reduces CPU utilization.
+ 
+VXLAN offloading is controlled by the tx and rx checksum offload options 
+provided by ethtool. That is, if tx checksum offload is enabled, and the 
+adapter has the capability, VXLAN offloading is also enabled.
+
+Support for VXLAN HW offloading is dependent on kernel support of the HW 
+offloading features.
+
+VXLAN Overlay HW Offloading is enabled by default. To view and configure VXLAN 
+offload on a VXLAN-overlay offload enabled device, use the following command:
+
+  # ethtool -k ethX
+   (This command displays the offloads and their current state.)
+
+For more information on configuring your network for overlay HW offloading 
+support, refer to the Intel Technical Brief, "Creating Overlay Networks Using 
+Intel Ethernet Converged Network Adapters" (Intel Networking Division, August 
+2013):
+
+http://www.intel.com/content/dam/www/public/us/en/documents/technology-briefs/
+overlay-networks-using-converged-network-adapters-brief.pdf
+
+
+Virtual Function (VF) TX Rate Limit
+-----------------------------------
+
+Virtual Function (VF) TX rate limit is configured with an ip command from the
+PF interface.
+  # ip link set eth0 vf 0 rate 1000
+    (This command sets TX Rate Limit of 1000Mbps for VF 0)
+
+Note that the limit is set per queue and not for the entire VF interface.
+
+
+================================================================================
+
+
+Known Issues/Troubleshooting
+----------------------------
+
+
+MAC address of Virtual Function changes unexpectedly
+----------------------------------------------------
+If a Virtual Function's MAC address is not assigned in the host, then the VF 
+(virtual function) driver will use a random MAC address. This random MAC 
+address may change each time the VF driver is reloaded. You can assign a static 
+MAC address in the host machine. This static MAC address will survive
+a VF driver reload.
+
+
+Hardware Issues
+---------------
+
+For known hardware and troubleshooting issues, either refer to the "Release
+Notes" in your User Guide, or for more detailed information, go to
+http://www.intel.com.
+
+In the search box enter your devices controller ID followed by "spec update"
+(i.e., 82599 spec update). The specification update file has complete
+information on known hardware issues.
+
+
+Software Issues
+---------------
+
+NOTE: After installing the driver, if your Intel Ethernet Network Connection
+is not working, verify that you have installed the correct driver.
+
+Intel(R) Active Management Technology 2.0, 2.1, 2.5 Not Supported in
+Conjunction with Linux driver.
+
+
+MSI-X Issues with Kernels Between 2.6.19 - 2.6.21 (inclusive)
+-------------------------------------------------------------
+
+Kernel panics and instability may be observed on any MSI-X hardware if you use
+irqbalance with kernels between 2.6.19 and 2.6.21. If such problems are
+encountered, you may disable the irqbalance daemon or upgrade to a newer
+kernel.
+
+
+LRO and iSCSI Incompatibility
+-----------------------------
+
+LRO is incompatible with iSCSI target or initiator traffic. A panic may occur
+when iSCSI traffic is received through the ixgbe driver with LRO enabled. To
+workaround this, the driver should be built and installed with:
+# make CFLAGS_EXTRA=-DIXGBE_NO_LRO install
+
+
+Multiple Interfaces on Same Ethernet Broadcast Network
+------------------------------------------------------
+Due to the default ARP behavior on Linux, it is not possible to have one system 
+on two IP networks in the same Ethernet broadcast domain (non-partitioned 
+switch) behave as expected. All Ethernet interfaces will respond to IP traffic 
+for any IP address assigned to the system. This results in unbalanced receive 
+traffic.
+
+If you have multiple interfaces in a server, either turn on ARP filtering by 
+entering:
+echo 1 > /proc/sys/net/ipv4/conf/all/arp_filter
+
+This only works if your kernel's version is higher than 2.4.5.
+
+
+NOTE: This setting is not saved across reboots. The configuration change can be 
+made permanent by adding the following line to the file /etc/sysctl.conf:
+net.ipv4.conf.all.arp_filter = 1
+
+Another alternative is to install the interfaces in separate broadcast domains 
+(either in different switches or in a switch partitioned to VLANs).
+
+
+UDP Stress Test Dropped Packet Issue
+------------------------------------
+Under small packet UDP stress with the ixgbe driver, the system may drop UDP 
+packets due to socket buffers being full. Setting the driver Intel Ethernet 
+Flow Control variables to the minimum may resolve the issue. You may also try
+increasing the kernel's default buffer sizes by changing the values in
+
+  /proc/sys/net/core/rmem_default and rmem_max
+
+
+Cisco Catalyst 4948-10GE port resets may cause switch to shut down ports
+------------------------------------------------------------------------
+
+82598-based hardware can re-establish link quickly and when connected to some
+switches, rapid resets within the driver may cause the switch port to become
+isolated due to "link flap". This is typically indicated by a yellow instead
+of a green link light. Several operations may cause this problem, such as
+repeatedly running ethtool commands that cause a reset.
+
+A potential workaround is to use the Cisco IOS command "no errdisable detect
+cause all" from the Global Configuration prompt which enables the switch to
+keep the interfaces up, regardless of errors.
+
+
+Rx Page Allocation Errors
+-------------------------
+'Page allocation failure. order:0' errors may occur under stress. with kernels 
+2.6.25 and newer. 
+This is caused by the way the Linux kernel reports this stressed condition.
+
+
+
+DCB: Generic segmentation offload on causes bandwidth allocation issues
+-----------------------------------------------------------------------
+
+In order for DCB to work correctly, Generic Segmentation Offload (GSO), also
+known as software TSO, must be disabled using ethtool. Since the hardware
+supports TSO (hardware offload of segmentation), GSO will not be running by
+default. The GSO state can be queried with ethtool using ethtool -k ethX.
+
+When using 82598-based network connections, ixgbe driver only supports 16
+queues on a platform with more than 16 cores.
+
+Due to known hardware limitations, RSS can only filter in a maximum of 16
+receive queues.
+
+82599 and X540, and X550-based network connections support up to 64 queues.
+
+
+Lower than expected performance
+-------------------------------
+Some PCIe x8 slots are actually configured as x4 slots. These slots have 
+insufficient bandwidth for full line rate with dual port and quad port devices. 
+In addition, if you put a PCIe v3.0-capable adapter into a PCIe v2.x slot, you 
+cannot get full bandwidth. The driver detects this situation and writes the 
+following message in the system log:
+
+"PCI-Express bandwidth available for this card is not sufficient for optimal 
+performance. For optimal performance a x8 PCI-Express slot is required."
+
+If this error occurs, moving your adapter to a true PCIe v3.0 x8 slot will 
+resolve the issue.
+
+
+ethtool may incorrectly display SFP+ fiber module as direct attached cable
+--------------------------------------------------------------------------
+Due to kernel limitations, port type can only be correctly displayed on kernel 
+2.6.33 or greater.
+
+Under Redhat 5.4, system may crash when closing guest OS window after 
+loading/unloading the Physical Function (PF) driver.
+
+Do not remove the ixgbe driver from Dom0 while Virtual Functions (VFs) are 
+assigned to guests. VFs must first use the xm "pci-detach" command to hot-plug 
+the VF device out of the VM it is assigned to or else shut down the VM.
+
+Unloading Physical Function (PF) driver may cause kernel panic or system reboot 
+when VM is running and VF is loaded on the VM.
+
+On pre-3.2 Linux kernels, unloading the Physical Function (PF) driver causes 
+system reboots when the VM is running and VF is loaded on the VM.
+
+Do not unload the PF driver (ixgbe) while VFs are assigned to guests.
+
+
+Running ethtool -t ethX command causes break between PF and test client
+-----------------------------------------------------------------------
+When there are active VFs, "ethtool -t" will only run the link test. The driver 
+will also log in syslog that VFs should be shut down to run a full diagnostic 
+test.
+
+
+SLES10 SP3 Random System Panic when Reloading Driver
+----------------------------------------------------
+
+This is a known SLES-10 SP3 issue. After requesting interrupts for MSI-X
+vectors, system may panic.
+
+Currently, the only known workaround is to build the driver with
+CFLAGS_EXTRA=-DDISABLE_PCI_MSI if the driver needs to be loaded/unloaded.
+Otherwise, the driver can be loaded once and will be safe, but unloading it
+will lead to the issue.
+
+Enabling SR-IOV in a 32-bit Microsoft* Windows* Server 2008 Guest OS Using
+Intel® 82576-based GbE or Intel® 82599-based 10GbE Controller Under KVM
+KVM Hypervisor/VMM supports direct assignment of a PCIe device to a VM. This
+includes traditional PCIe devices, as well as SR-IOV-capable devices using
+Intel 82576-based and 82599-based controllers.
+
+While direct assignment of a PCIe device or an SR-IOV Virtual Function (VF) to
+a Linux-based VM running 2.6.32 or newer kernel is functional, there is a
+known issue with Microsoft Windows Server 2008 VM that results in a "yellow
+bang" error. This problem is within the KVM VMM itself, not the Intel driver
+or the SR-IOV logic of the VMM. The KVM emulates an older CPU model for the
+guests, and this older CPU model does not support MSI-X interrupts, which is a
+requirement for Intel SR-IOV.
+
+If you wish to use the Intel 82576- or 82599-based controllers in SR-IOV mode
+with KVM and a Microsoft Windows Server 2008 guest, try the following
+workaround. Configure KVM to emulate a different model of CPU
+when using qemu to create the KVM guest:
+"-cpu qemu64,model=13"
+
+
+Unable to obtain DHCP lease on boot with RedHat
+-----------------------------------------------
+In configurations where the auto-negotiation process takes more than 5 seconds, 
+the boot script may fail with the following message:
+"ethX: failed. No link present. Check cable?"
+
+This error may occur even though the presence of link can be confirmed using 
+ethtool ethx. In this case, try setting "LINKDELAY=30" in
+/etc/sysconfig/network-scripts/ifdfg-ethx.
+
+The same issue can occur during a network boot (via PXE) on RedHat 
+distributions that use the dracut script:
+"Warning: No carrier detected on interface <interface_name>"
+
+In this case add "rd.net.timeout.carrier=30" at the kernel command line.
+
+NOTE: Link time can vary. Adjust LINKDELAY value accordingly.
+
+
+Host May Reboot after Removing PF when VF is Active in Guest
+------------------------------------------------------------
+
+Using kernel versions earlier than 3.2, do not unload the PF driver with
+active VFs. Doing this will cause your VFs to stop working until you reload
+the PF driver and may cause a spontaneous reboot of your system.
+
+Prior to unloading the PF driver, you must first ensure that all VFs are
+no longer active. Do this by shutting down all VMs and unloading the VF driver.
+
+
+Out of memory issues on IA32 systems
+-------------------------------------
+
+The driver may consume a lot of memory based on the number of CPUs and network
+interfaces. This leads to memory segmentation. Thus, the driver may not be
+able to allocate enough memory. To resolve this, reduce the number of
+descriptors using ethtool -G or the number of queues through the RSS parameter.
+
+
+VLAN tags are stripped on kernels earlier than 2.6.36
+-----------------------------------------------------
+
+In order to support DCB, kernels earlier than 2.6.36 strip VLAN tags for
+VLAN0. This ensures connectivity using 802.1p frames between kernels that
+have built-in support and kernels that do not.
+
+If the VLAN tags are necessary AND DCB is NOT used, disable vlan stripping
+on older kernels at build time with the following:
+
+  # make CFLAGS_EXTRA=-DIXGBE_DISABLE_8021P_SUPPORT
+
+
+================================================================================
+
+
+Support
+-------
+For general information, go to the Intel support website at:
+www.intel.com/support/
+
+or the Intel Wired Networking project hosted by Sourceforge at:
+http://sourceforge.net/projects/e1000
+If an issue is identified with the released source code on a supported kernel 
+with a supported adapter, email the specific information related to the issue 
+to e1000-devel@lists.sf.net.
+
+
+================================================================================
+
+
+License
+-------
+This program is free software; you can redistribute it and/or modify it under
+the terms and conditions of the GNU General Public License, version 2, as
+published by the Free Software Foundation.
+
+This program is distributed in the hope it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+St - Fifth Floor, Boston, MA 02110-1301 USA.
+
+The full GNU General Public License is included in this distribution in the
+file called "COPYING".
+
+Copyright(c) 1999 - 2017 Intel Corporation.
+================================================================================
+
+
+Trademarks
+----------
+Intel and Itanium are trademarks or registered trademarks of Intel Corporation 
+or its subsidiaries in the United States and/or other countries.
+
+* Other names and brands may be claimed as the property of others.
+
