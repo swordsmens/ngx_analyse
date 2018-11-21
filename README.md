@@ -15,7 +15,7 @@ chapter1.3.4 Linux内核参数的优化
   ![image](https://raw.githubusercontent.com/dahaiyu/nginx_reading_notes/master/img_folder/chapter1/lsof_fd.png) 
     每一个incoming connection并不会新占用一个本机端口号,如下图所示：
   ![image](https://github.com/dahaiyu/nginx_reading_notes/blob/master/img_folder/chapter1/netstat_1.png?raw=true) 
-  即socket accept一个新链接时，Local Address不需要占用一个新端口号，只需要占用一个fd,而Foreign Address占用port和fd。
+  即socket accept一个新链接时，Local Address不需要占用一个新端口号，只需要占用一个fd。
   
   Q:Server端所能接受的incoming connections是否受限于端口号(65535)？
   
